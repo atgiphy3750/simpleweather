@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 def get_data():
     load_dotenv(verbose=True)
+    WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
     CURRENT_TIME: datetime = current_time()
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
@@ -16,7 +17,7 @@ def get_data():
 
     url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
     params = {
-        "ServiceKey": os.getenv["WEATHER_API_KEY"],
+        "ServiceKey": WEATHER_API_KEY,
         "pageNo": 1,
         "numOfRows": 70,
         "dataType": "JSON",
