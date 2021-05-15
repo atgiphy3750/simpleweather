@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>날씨</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app">
+      {% for key, value in data.items() %}
+      <ul class="container">
+        <li class="item time">{{ key | strftime }}</li>
+        <li class="item weather">{{ value["weather"] }}</li>
+        <li class="item temp">{{ value["temp"] }}℃</li>
+        <li class="item rain">{{ value["rain"] }}%</li>
+      </ul>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
