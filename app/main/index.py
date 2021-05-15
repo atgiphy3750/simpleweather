@@ -4,17 +4,19 @@ from flask.blueprints import Blueprint
 import requests
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 
 
 def get_data():
+    load_dotenv(verbose=True)
+
     CURRENT_TIME: datetime = current_time()
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
     TIME = CURRENT_TIME.strftime(r"%H00")
 
     url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
-    print("WEATHER_API_KEY" + os.environ.get("WEATHER_API_KEY"))
     params = {
-        "ServiceKey": os.environ["WEATHER_API_KEY"],
+        "ServiceKey": os.getenv["WEATHER_API_KEY"],
         "pageNo": 1,
         "numOfRows": 70,
         "dataType": "JSON",
