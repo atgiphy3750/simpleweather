@@ -12,8 +12,9 @@ def get_data():
     TIME = CURRENT_TIME.strftime(r"%H00")
 
     url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
+    print("WEATHER_API_KEY" + os.environ.get("WEATHER_API_KEY"))
     params = {
-        "ServiceKey": os.environ.get("WEATHER_API_KEY"),
+        "ServiceKey": os.environ["WEATHER_API_KEY"],
         "pageNo": 1,
         "numOfRows": 70,
         "dataType": "JSON",
@@ -22,6 +23,7 @@ def get_data():
         "nx": 89,
         "ny": 111,
     }
+    print(os.environ.get("WEATHER_API_KEY"))
     req = requests.sessions.PreparedRequest()
     req.prepare_url(url, params)
     response = requests.get(req.url)
