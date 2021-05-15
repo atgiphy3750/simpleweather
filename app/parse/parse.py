@@ -22,7 +22,7 @@ def current_time():
     return time
 
 
-def parse(data: Dict):
+def parse_data(data: Dict):
     result: Dict = {}
     items: Dict = data["response"]["body"]["items"]["item"]
     for item in items:
@@ -41,7 +41,7 @@ def parse(data: Dict):
             if result[date].get(WEATHER) is None:
                 result[date][WEATHER] = SKY[value]
         if category == "T3H":
-            value = float(item[FORECASTVALUE])
+            value = int(item[FORECASTVALUE])
             result[date][TEMP] = value
         if category == "POP":
             value = int(item[FORECASTVALUE])
@@ -56,11 +56,3 @@ def parse(data: Dict):
             break
 
     return result
-
-
-if __name__ == "__main__":
-    # with open("data.json", "r", encoding="utf-8") as f:
-    #     data = json.load(f)
-    # parsed = parse(data)
-    # print(json.dumps(parsed, indent=2, ensure_ascii=False))
-    pass

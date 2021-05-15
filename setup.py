@@ -4,7 +4,5 @@ setup(
     name="simple-weather",
     packages=["simple-weather"],
     include_package_data=True,
-    install_requires=[
-        "flask",
-    ],
+    install_requires=["Flask", "requests", "Frozen-Flask"],
 )
