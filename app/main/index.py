@@ -5,6 +5,7 @@ import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+from pathlib import Path
 
 
 def get_data():
@@ -28,7 +29,6 @@ def get_data():
         "nx": 89,
         "ny": 111,
     }
-    print(os.environ.get("WEATHER_API_KEY"))
     req = requests.sessions.PreparedRequest()
     req.prepare_url(url, params)
     response = requests.get(req.url)
