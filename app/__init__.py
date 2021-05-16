@@ -8,18 +8,20 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def index():
-    data_ = data()
-    print("Data fetched")
-    if data_:
-        return render_template("index.html", data=data_)
-    else:
-        return "Key error"
+    return render_template("index.html")
+
+
+@app.route("/data", methods=["POST"])
+def get_data():
+    return data()
 
 
 @app.template_filter("strftime")
-def format_datetime(value: datetime):
-    if value.hour >= 12:
+def format_datetime(value: str):
+    print(value)
+    time = datetime.strptime(value, r"%Y-%m-%d %H:%M:%S")
+    if time.hour >= 12:
         am_pm = "오후"
     else:
         am_pm = "오전"
-    return value.strftime(f"%m월 %d일 {am_pm} %I시")
+    return time.strftime(f"%m월 %d일 {am_pm} %I시")

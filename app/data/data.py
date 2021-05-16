@@ -14,6 +14,7 @@ FORECASTTIME = "fcstTime"
 FORECASTVALUE = "fcstValue"
 BASETIME = [2, 5, 8, 11, 14, 17, 20, 23]
 RAIN = "rain"
+DATE = "date"
 
 
 def data():
@@ -45,7 +46,6 @@ def get_data():
     response = requests.get(req.url)
 
     data = response.json()
-
     return data
 
 
@@ -62,34 +62,51 @@ def current_time():
 def parse(data: Dict):
     result: Dict = {}
     items: Dict = data["response"]["body"]["items"]["item"]
+    index = 0
     for item in items:
-        date_str = f"{item[FORECASTDATE]}{item[FORECASTTIME]}"
-        date = datetime.strptime(date_str, r"%Y%m%d%H%M")
-        if result.get(date) is None and len(result) < 6:
-            result[date] = {}
         category = item[CATEGORY]
+        if category not in ["PTY", "SKY", "T3H", "POP"]:
+            continue
 
+        date_str = f"{item[FORECASTDATE]}{item[FORECASTTIME]}"
+        date = str(datetime.strptime(date_str, r"%Y%m%d%H%M"))
+
+        if result.get(index) is None and len(result) < 6:
+            result[index] = {}
+
+        result[index][DATE] = date
         if category == "PTY":
             value = int(item[FORECASTVALUE])
             if value:
-                result[date][WEATHER] = PTY[value]
+                result[index][WEATHER] = PTY[value]
+
         if category == "SKY":
             value = int(item[FORECASTVALUE])
-            if result[date].get(WEATHER) is None:
-                result[date][WEATHER] = SKY[value]
+            if result[index].get(WEATHER) is None:
+                result[index][WEATHER] = SKY[value]
+
         if category == "T3H":
             value = int(item[FORECASTVALUE])
-            result[date][TEMP] = value
+            result[index][TEMP] = value
+
         if category == "POP":
             value = int(item[FORECASTVALUE])
-            result[date][RAIN] = value
+            result[index][RAIN] = value
 
         if (
             len(result) == 5
-            and result[date].get(WEATHER)
-            and result[date].get(TEMP)
-            and result[date].get(RAIN)
+            and result[index].get(WEATHER)
+            and result[index].get(TEMP)
+            and result[index].get(RAIN)
         ):
             break
+
+        if (
+            result[index].get(DATE)
+            and result[index].get(WEATHER)
+            and result[index].get(TEMP)
+            and result[index].get(RAIN)
+        ):
+            index += 1
 
     return result

@@ -14,7 +14,7 @@
   display: flex;
 
   flex-shrink: 0;
-  box-shadow: 0 0 0 2px red;
+  box-shadow: 0 0 0 2px rgb(175, 78, 78);
 }
 
 .center {

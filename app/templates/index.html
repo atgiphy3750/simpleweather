@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <title>날씨</title>
     <link
       rel="stylesheet"
@@ -8,25 +9,74 @@
     />
   </head>
   <body>
-    <div class="app">
-      {% for key, value in data.items() %}
-      <div class="container">
-        <div class="flex center time">{{ key | strftime }}</div>
-        <div class="flex weather-wrap">
-          <div class="flex center weather">{{ value["weather"] }}</div>
-          <div class="flex number-wrap">
-            <div class="flex center temp">{{ value["temp"] }}℃</div>
-            <div class="flex center rain">{{ value["rain"] }}%</div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+    <div class="app"></div>
   </body>
   <script>
-    function timedRefresh(peroid) {
-      setTimeout(() => location.reload(true), peroid);
+    var url = "data";
+    window.onload = function () {
+      show();
+      setInterval(show, 1000 * 60 * 60);
+    };
+
+    var today = new Date().getDate();
+
+    function show() {
+      getData(function (result) {
+        addHTML(result);
+      });
     }
-    window.onload = timedRefresh(3600000);
+
+    function addHTML(data) {
+      var app = document.getElementsByClassName("app")[0];
+      app.textContent = "";
+      for (var index in data) {
+        var value = data[index];
+        var html = makeHTML(value);
+        app.appendChild(html);
+      }
+    }
+
+    function makeHTML(value) {
+      var htm = `
+        <div class="container">
+          <div class="flex center time">${parseDatetime(value["date"])}</div>
+          <div class="flex weather-wrap">
+            <div class="flex center weather">${value["weather"]}</div>
+            <div class="flex number-wrap">
+              <div class="flex center temp">${value["temp"]}℃</div>
+              <div class="flex center rain">${value["rain"]}%</div>
+            </div>
+          </div>
+        </div>`;
+      var template = document.createElement("template");
+      template.innerHTML = htm.trim();
+
+      return template.content.firstChild;
+    }
+
+    function parseDatetime(datetimeString) {
+      var datetime = new Date(datetimeString);
+      var date = datetime.getDate();
+      var isToday = "오늘";
+      if (date === today + 1) {
+        isToday = "내일";
+      }
+
+      var hours = datetime.getHours();
+
+      return `${isToday} ${hours}시`;
+    }
+
+    function getData(callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onload = function () {
+        callback(JSON.parse(xhr.responseText));
+      };
+
+      xhr.send();
+    }
   </script>
 </html>
