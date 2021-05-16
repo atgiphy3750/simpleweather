@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 def get_data():
     load_dotenv(verbose=True)
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+    if WEATHER_API_KEY is None:
+        return False
 
     CURRENT_TIME: datetime = current_time()
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
@@ -40,4 +42,8 @@ main = Blueprint("main", __name__, url_prefix="/")
 
 @main.route("/")
 def index():
-    return render_template("index.html", data=parse_data(get_data()))
+    data = get_data()
+    if data:
+        return render_template("index.html", data=parse_data(get_data()))
+    else:
+        return "Key error"
