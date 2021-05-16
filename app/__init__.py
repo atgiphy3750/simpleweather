@@ -2,7 +2,6 @@ from flask.templating import render_template
 from app.data.data import data
 from datetime import datetime
 from flask import Flask
-from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
@@ -15,11 +14,6 @@ def index():
         return render_template("index.html", data=data_)
     else:
         return "Key error"
-
-
-sched = BackgroundScheduler()
-sched.add_job(index, "interval", seconds=2)
-sched.start()
 
 
 @app.template_filter("strftime")
