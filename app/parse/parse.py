@@ -1,5 +1,5 @@
 from typing import Dict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 
 SKY = ["", "맑음", "구름조금", "구름많음", "흐림"]
@@ -15,7 +15,8 @@ RAIN = "rain"
 
 
 def current_time():
-    time = datetime.now()
+    utctime = datetime.utcnow()
+    time = utctime + timedelta(hours=9)
     time -= timedelta(minutes=5)
     while not time.hour in BASETIME:
         time -= timedelta(hours=1)

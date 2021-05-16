@@ -4,7 +4,6 @@ from flask.blueprints import Blueprint
 import requests
 import os
 from datetime import datetime
-from dotenv import load_dotenv
 
 
 def get_data():
