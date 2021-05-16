@@ -34,10 +34,28 @@
         var html = makeHTML(value);
         app.appendChild(html);
       }
+      var currentTime = getCurrentTime();
+      app.appendChild(currentTime);
+    }
+
+    function getKRTime() {
+      var currTime = new Date();
+      var utcTime =
+        currTime.getTime() + currTime.getTimezoneOffset() * 60 * 1000;
+      var KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+      var KRTime = new Date(utcTime + KR_TIME_DIFF);
+      return KRTime;
+    }
+
+    function getCurrentTime() {
+      var html = `<div>갱신: ${getKRTime().toString()}</div>`;
+      var template = document.createElement("template");
+      template.innerHTML = html.trim();
+      return template.content.firstChild;
     }
 
     function makeHTML(value) {
-      var htm = `
+      var html = `
         <div class="container">
           <div class="flex center time">${parseDatetime(value["date"])}</div>
           <div class="flex weather-wrap">
@@ -49,7 +67,7 @@
           </div>
         </div>`;
       var template = document.createElement("template");
-      template.innerHTML = htm.trim();
+      template.innerHTML = html.trim();
 
       return template.content.firstChild;
     }
