@@ -19,6 +19,7 @@ def current_time():
     time -= timedelta(minutes=5)
     while not time.hour in BASETIME:
         time -= timedelta(hours=1)
+    time -= timedelta(hours=3)
     return time
 
 

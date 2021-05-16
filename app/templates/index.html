@@ -10,13 +10,17 @@
   <body>
     <div class="app">
       {% for key, value in data.items() %}
-      <ul class="container">
-        <li class="item time">{{ key | strftime }}</li>
-        <li class="item weather">{{ value["weather"] }}</li>
-        <li class="item temp">{{ value["temp"] }}℃</li>
-        <li class="item rain">{{ value["rain"] }}%</li>
-      </ul>
+      <div class="container">
+        <div class="flex center time">{{ key | strftime }}</div>
+        <div class="flex weather-wrap">
+          <div class="flex center weather">{{ value["weather"] }}</div>
+          <div class="flex number-wrap">
+            <div class="flex center temp">{{ value["temp"] }}℃</div>
+            <div class="flex center rain">{{ value["rain"] }}%</div>
+          </div>
+        </div>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
   </body>
 </html>

@@ -1,15 +1,13 @@
 from app.parse.parse import parse_data, current_time
-from flask import Flask, render_template
+from flask import render_template
 from flask.blueprints import Blueprint
 import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-from pathlib import Path
 
 
 def get_data():
-    load_dotenv(verbose=True)
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
     if WEATHER_API_KEY is None:
         return False
@@ -32,6 +30,7 @@ def get_data():
     req = requests.sessions.PreparedRequest()
     req.prepare_url(url, params)
     response = requests.get(req.url)
+
     data = response.json()
 
     return data
