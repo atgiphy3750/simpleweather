@@ -1,8 +1,25 @@
+from flask.templating import render_template
+from app.data.data import data
 from datetime import datetime
 from flask import Flask
-from app.main.index import main
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
+
+
+@app.route("/", methods=["GET"])
+def index():
+    data_ = data()
+    print("Data fetched")
+    if data_:
+        return render_template("index.html", data=data_)
+    else:
+        return "Key error"
+
+
+sched = BackgroundScheduler()
+sched.add_job(index, "interval", seconds=2)
+sched.start()
 
 
 @app.template_filter("strftime")
@@ -12,6 +29,3 @@ def format_datetime(value: datetime):
     else:
         am_pm = "오전"
     return value.strftime(f"%m월 %d일 {am_pm} %I시")
-
-
-app.register_blueprint(main)

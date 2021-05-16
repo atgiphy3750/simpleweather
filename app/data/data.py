@@ -1,5 +1,7 @@
+import os
 from typing import Dict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+import requests
 
 
 SKY = ["", "맑음", "구름조금", "구름많음", "흐림"]
@@ -14,6 +16,39 @@ BASETIME = [2, 5, 8, 11, 14, 17, 20, 23]
 RAIN = "rain"
 
 
+def data():
+    return parse(get_data())
+
+
+def get_data():
+    WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+    if WEATHER_API_KEY is None:
+        return False
+
+    CURRENT_TIME: datetime = current_time()
+    DATE = CURRENT_TIME.strftime(r"%Y%m%d")
+    TIME = CURRENT_TIME.strftime(r"%H00")
+
+    url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
+    params = {
+        "ServiceKey": WEATHER_API_KEY,
+        "pageNo": 1,
+        "numOfRows": 70,
+        "dataType": "JSON",
+        "base_date": DATE,
+        "base_time": TIME,
+        "nx": 89,
+        "ny": 111,
+    }
+    req = requests.sessions.PreparedRequest()
+    req.prepare_url(url, params)
+    response = requests.get(req.url)
+
+    data = response.json()
+
+    return data
+
+
 def current_time():
     utctime = datetime.utcnow()
     time = utctime + timedelta(hours=9)
@@ -24,7 +59,7 @@ def current_time():
     return time
 
 
-def parse_data(data: Dict):
+def parse(data: Dict):
     result: Dict = {}
     items: Dict = data["response"]["body"]["items"]["item"]
     for item in items:

@@ -23,4 +23,10 @@
       {% endfor %}
     </div>
   </body>
+  <script>
+    function timedRefresh(peroid) {
+      setTimeout(() => location.reload(true), peroid);
+    }
+    window.onload = timedRefresh(3600000);
+  </script>
 </html>
