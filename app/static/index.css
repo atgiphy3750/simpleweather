@@ -7,7 +7,7 @@
 }
 
 .container {
-  width: 80%;
+  width: 800px;
 }
 
 .flex {
@@ -28,24 +28,27 @@
 
 .time {
   font-size: 20pt;
+  height: 40px;
 }
 
 .weather {
   font-size: 80pt;
-  width: 70%;
+  width: 550px;
+  height: 160px;
 }
 
 .number-wrap {
   flex-direction: column;
-  width: 30%;
+  width: 250px;
+  height: 160px;
 }
 
 .temp {
   font-size: 20pt;
-  height: 50%;
+  height: 80px;
 }
 
 .rain {
   font-size: 20pt;
-  height: 50%;
+  height: 80px;
 }
