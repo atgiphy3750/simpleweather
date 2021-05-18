@@ -7,7 +7,7 @@ class Weather:
     Weather Class
     """
 
-    FCSTDATE: str = "date"
+    DATE: str = "date"
     RAIN: str = "rain"
     WEATHER: str = "weather"
     TEMP: str = "temp"
@@ -64,7 +64,7 @@ class Weather:
 
     def to_dict(self) -> Dict:
         data = {
-            Weather.FCSTDATE: self.__date,
+            Weather.DATE: self.__date,
             Weather.RAIN: self.__rain,
             Weather.WEATHER: self.__weather,
             Weather.TEMP: self.__temp,
