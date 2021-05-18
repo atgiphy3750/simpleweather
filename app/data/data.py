@@ -2,26 +2,22 @@ import os
 from typing import Dict
 from datetime import datetime, timedelta
 import requests
+from app.model.weather import Weather
 
 
-SKY = ["", "맑음", "구름조금", "구름많음", "흐림"]
-PTY = ["없음", "비", "비/눈", "소나기", "빗방울", "빗방울/눈날림", "눈날림"]
-WEATHER = "weather"
-TEMP = "temp"
-CATEGORY = "category"
-FORECASTDATE = "fcstDate"
-FORECASTTIME = "fcstTime"
-FORECASTVALUE = "fcstValue"
 BASETIME = [2, 5, 8, 11, 14, 17, 20, 23]
-RAIN = "rain"
-DATE = "date"
+URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
 
 
 def data():
-    return parse(get_data())
+    data_ = fetch_data()
+    if data_:
+        return parse(data_)
+    else:
+        raise Exception("Data is None")
 
 
-def get_data():
+def fetch_data():
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
     if WEATHER_API_KEY is None:
         return False
@@ -30,7 +26,6 @@ def get_data():
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
     TIME = CURRENT_TIME.strftime(r"%H00")
 
-    url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
     params = {
         "ServiceKey": WEATHER_API_KEY,
         "pageNo": 1,
@@ -42,7 +37,7 @@ def get_data():
         "ny": 111,
     }
     req = requests.sessions.PreparedRequest()
-    req.prepare_url(url, params)
+    req.prepare_url(URL, params)
     response = requests.get(req.url)
 
     data = response.json()
@@ -59,54 +54,27 @@ def current_time():
     return time
 
 
+def get_date(date, time):
+    date_str = f"{date}{time}"
+    return str(datetime.strptime(date_str, r"%Y%m%d%H%M"))
+
+
 def parse(data: Dict):
     result: Dict = {}
     items: Dict = data["response"]["body"]["items"]["item"]
-    index = 0
-    for item in items:
-        category = item[CATEGORY]
-        if category not in ["PTY", "SKY", "T3H", "POP"]:
-            continue
 
-        date_str = f"{item[FORECASTDATE]}{item[FORECASTTIME]}"
-        date = str(datetime.strptime(date_str, r"%Y%m%d%H%M"))
-
-        if result.get(index) is None and len(result) < 6:
-            result[index] = {}
-
-        result[index][DATE] = date
-        if category == "PTY":
-            value = int(item[FORECASTVALUE])
-            if value:
-                result[index][WEATHER] = PTY[value]
-
-        if category == "SKY":
-            value = int(item[FORECASTVALUE])
-            if result[index].get(WEATHER) is None:
-                result[index][WEATHER] = SKY[value]
-
-        if category == "T3H":
-            value = int(item[FORECASTVALUE])
-            result[index][TEMP] = value
-
-        if category == "POP":
-            value = int(item[FORECASTVALUE])
-            result[index][RAIN] = value
-
-        if (
-            len(result) == 5
-            and result[index].get(WEATHER)
-            and result[index].get(TEMP)
-            and result[index].get(RAIN)
-        ):
-            break
-
-        if (
-            result[index].get(DATE)
-            and result[index].get(WEATHER)
-            and result[index].get(TEMP)
-            and result[index].get(RAIN)
-        ):
-            index += 1
-
+    count = 0
+    length = len(items)
+    for index in range(5):
+        weather = Weather()
+        while count < length:
+            count += 1
+            item = items[count]
+            if weather.should_break():
+                break
+            elif weather.should_continue(item):
+                continue
+            else:
+                weather.add(item)
+        result[index] = weather.to_dict()
     return result

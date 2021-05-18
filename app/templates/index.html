@@ -26,18 +26,6 @@
       });
     }
 
-    function addHTML(data) {
-      var app = document.getElementsByClassName("app")[0];
-      app.textContent = "";
-      for (var index in data) {
-        var value = data[index];
-        var html = makeHTML(value);
-        app.appendChild(html);
-      }
-      var currentTime = getCurrentTime();
-      app.appendChild(currentTime);
-    }
-
     function getKRTime() {
       var currTime = new Date();
       var utcTime =
@@ -52,6 +40,18 @@
       var template = document.createElement("template");
       template.innerHTML = html.trim();
       return template.content.firstChild;
+    }
+
+    function addHTML(data) {
+      var app = document.getElementsByClassName("app")[0];
+      app.textContent = "";
+      for (var index in data) {
+        var value = data[index];
+        var html = makeHTML(value);
+        app.appendChild(html);
+      }
+      var currentTime = getCurrentTime();
+      app.appendChild(currentTime);
     }
 
     function makeHTML(value) {
