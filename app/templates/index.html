@@ -18,8 +18,6 @@
       setInterval(show, 1000 * 60 * 60);
     };
 
-    var today = new Date().getDate();
-
     function show() {
       getData(function (result) {
         addHTML(result);
@@ -85,6 +83,7 @@
       );
 
       var date = datetime.getDate();
+      var today = new Date().getDate();
       var isToday = "오늘";
       if (date === today + 1) {
         isToday = "내일";
