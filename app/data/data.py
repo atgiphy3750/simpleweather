@@ -17,10 +17,10 @@ def data():
         raise Exception("Data is None")
 
 
-def fetch_data():
+def fetch_data() -> Dict:
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
     if WEATHER_API_KEY is None:
-        return False
+        return {}
 
     CURRENT_TIME: datetime = current_time()
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
@@ -40,15 +40,15 @@ def fetch_data():
     req.prepare_url(URL, params)
     response = requests.get(req.url)
 
-    data = response.json()
-    return data
+    data_ = response.json()
+    return data_
 
 
 def current_time():
     utctime = datetime.utcnow()
     time = utctime + timedelta(hours=9)
     time -= timedelta(minutes=5)
-    while not time.hour in BASETIME:
+    while time.hour not in BASETIME:
         time -= timedelta(hours=1)
     time -= timedelta(hours=3)
     return time
@@ -59,9 +59,9 @@ def get_date(date, time):
     return str(datetime.strptime(date_str, r"%Y%m%d%H%M"))
 
 
-def parse(data: Dict):
+def parse(data_: Dict):
     result: Dict = {}
-    items: Dict = data["response"]["body"]["items"]["item"]
+    items: Dict = data_["response"]["body"]["items"]["item"]
 
     count = 0
     length = len(items)
