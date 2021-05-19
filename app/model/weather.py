@@ -60,7 +60,10 @@ class Weather:
         return self.__is_full() and self.__date == date
 
     def __is_full(self) -> bool:
-        return self.__date and self.__rain and self.__weather and self.__temp
+        if self.__date and self.__rain and self.__weather and self.__temp:
+            return True
+        else:
+            return False
 
     def to_dict(self) -> Dict:
         data = {

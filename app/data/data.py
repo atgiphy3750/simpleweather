@@ -20,7 +20,7 @@ def data():
 def fetch_data() -> Dict:
     WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
     if WEATHER_API_KEY is None:
-        return {}
+        raise ValueError("Weather api key is unvalid")
 
     CURRENT_TIME: datetime = current_time()
     DATE = CURRENT_TIME.strftime(r"%Y%m%d")
@@ -38,10 +38,14 @@ def fetch_data() -> Dict:
     }
     req = requests.sessions.PreparedRequest()
     req.prepare_url(URL, params)
-    response = requests.get(req.url)
+    if req.url:
+        url = req.url
+        response = requests.get(url)
 
-    data_ = response.json()
-    return data_
+        data_ = response.json()
+        return data_
+    else:
+        raise ValueError("req.url is invalid")
 
 
 def current_time():
