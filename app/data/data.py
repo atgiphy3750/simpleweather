@@ -6,6 +6,8 @@ from app.model.weather import Weather
 
 
 BASETIME = [2, 5, 8, 11, 14, 17, 20, 23]
+FETCH_LENGTH = 16
+FETCH_DAYS = 2
 URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
 
 
@@ -29,7 +31,7 @@ def fetch_data() -> Dict:
     params = {
         "ServiceKey": WEATHER_API_KEY,
         "pageNo": 1,
-        "numOfRows": 70,
+        "numOfRows": FETCH_LENGTH * 14,
         "dataType": "JSON",
         "base_date": DATE,
         "base_time": TIME,
@@ -69,11 +71,11 @@ def parse(data_: Dict):
 
     count = 0
     length = len(items)
-    for index in range(5):
+    for index in range(2):
         weather = Weather()
         while count < length:
-            count += 1
             item = items[count]
+            count += 1
             if weather.should_break():
                 break
             elif weather.should_continue(item):

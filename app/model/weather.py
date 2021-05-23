@@ -7,7 +7,7 @@ class Weather:
     Weather Class
     """
 
-    DATE: str = "date"
+    DATETIME: str = "datetime"
     RAIN: str = "rain"
     WEATHER: str = "weather"
     TEMP: str = "temp"
@@ -26,6 +26,7 @@ class Weather:
     FCSTVALUE = "fcstValue"
 
     def __init__(self) -> None:
+        self.__datetime: datetime
         self.__date: str = ""
         self.__rain: int = 0
         self.__weather: str = ""
@@ -36,8 +37,9 @@ class Weather:
         date = data[Weather.FCSTDATE]
         time = data[Weather.FCSTTIME]
         value = data[Weather.FCSTVALUE]
-        if not self.__date:
-            self.__date = self.__get_date(date, time)
+        if not self.__datetime:
+            self.__datetime = self.__get_datetime(date, time)
+            self.__date = str(self.__datetime.date())
         self.__set_data(value, category)
 
     def __set_data(self, value, type: str) -> None:
@@ -56,18 +58,19 @@ class Weather:
         return self.__is_full()
 
     def should_continue(self, item) -> bool:
-        date = self.__get_date(item[Weather.FCSTDATE], item[Weather.FCSTTIME])
+        datetime = self.__get_datetime(item[Weather.FCSTDATE], item[Weather.FCSTTIME])
+        date = datetime.date()
         return self.__is_full() and self.__date == date
 
     def __is_full(self) -> bool:
-        if self.__date and self.__rain and self.__weather and self.__temp:
+        if self.__datetime and self.__rain and self.__weather and self.__temp:
             return True
         else:
             return False
 
     def to_dict(self) -> Dict:
         data = {
-            Weather.DATE: self.__date,
+            Weather.DATETIME: self.__datetime,
             Weather.RAIN: self.__rain,
             Weather.WEATHER: self.__weather,
             Weather.TEMP: self.__temp,
@@ -75,9 +78,9 @@ class Weather:
         return data
 
     @staticmethod
-    def __get_date(date, time) -> str:
+    def __get_datetime(date, time):
         date_str = f"{date}{time}"
-        return str(datetime.strptime(date_str, r"%Y%m%d%H%M"))
+        return datetime.strptime(date_str, r"%Y%m%d%H%M")
 
     def __str__(self):
-        return f"date: {self.__date}, rain: {self.__rain}, weather: {self.__weather}, temp: {self.__temp}"
+        return f"date: {self.__datetime}, rain: {self.__rain}, weather: {self.__weather}, temp: {self.__temp}"
