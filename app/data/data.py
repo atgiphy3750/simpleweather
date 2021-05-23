@@ -40,6 +40,7 @@ def fetch_data() -> Dict:
     }
     req = requests.sessions.PreparedRequest()
     req.prepare_url(URL, params)
+    print(req.url)
     if req.url:
         url = req.url
         response = requests.get(url)
