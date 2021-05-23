@@ -84,4 +84,5 @@ def parse(data_: Dict):
             else:
                 weather.add(item)
         result[index] = weather.to_dict()
+    print(result)
     return result

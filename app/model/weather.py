@@ -53,7 +53,8 @@ class Weather:
         elif type == Weather.T3H:
             self.__temp = value
         elif type == Weather.POP:
-            self.__rain = value
+            if int(value) > self.__rain:
+                self.__rain = value
 
     def should_break(self) -> bool:
         return self.__is_full()
