@@ -45,7 +45,7 @@ class Weather:
 
     def __set_data(self, value, type: str) -> None:
         if type == Weather.PTY:
-            if value:
+            if int(value):
                 self.__weather = Weather.PTYLIST[int(value)]
         elif type == Weather.SKY:
             if self.__weather == "":
@@ -54,10 +54,14 @@ class Weather:
             self.__temp = value
         elif type == Weather.POP:
             if int(value) > self.__rain:
-                self.__rain = value
+                self.__rain = int(value)
 
-    def should_break(self) -> bool:
-        return self.__is_full()
+    def should_break(self, item) -> bool:
+        if self.__date:
+            item_datetime = self.__get_datetime(item[Weather.FCSTDATE], item[Weather.FCSTTIME])
+            item_date = str(item_datetime.date()).strip()
+            return self.__date != item_date
+        return False
 
     def should_continue(self, item) -> bool:
         datetime = self.__get_datetime(item[Weather.FCSTDATE], item[Weather.FCSTTIME])
@@ -65,6 +69,7 @@ class Weather:
         return self.__is_full() and self.__date == date
 
     def __is_full(self) -> bool:
+        # TODO: Delete this
         if self.__date and self.__rain and self.__weather and self.__temp:
             return True
         else:

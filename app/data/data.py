@@ -40,7 +40,6 @@ def fetch_data() -> Dict:
     }
     req = requests.sessions.PreparedRequest()
     req.prepare_url(URL, params)
-    print(req.url)
     if req.url:
         url = req.url
         response = requests.get(url)
@@ -77,10 +76,8 @@ def parse(data_: Dict):
         while count < length:
             item = items[count]
             count += 1
-            if weather.should_break():
+            if weather.should_break(item):
                 break
-            elif weather.should_continue(item):
-                continue
             else:
                 weather.add(item)
         result[index] = weather.to_dict()
