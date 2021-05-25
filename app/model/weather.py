@@ -18,8 +18,8 @@ class Weather:
     T3H: str = "T3H"
     POP: str = "POP"
 
-    SKYLIST = ["", "맑음", "구름조금", "구름많음", "흐림"]
-    PTYLIST = ["", "비", "비/눈", "소나기", "빗방울", "빗방울/눈날림", "눈날림"]
+    SKYLIST = ["", "맑음", "구름 조금", "구름 많음", "흐림"]
+    PTYLIST = ["", "비", "비/눈", "소나기", "빗방울", "빗방울 눈날림", "눈날림"]
 
     CATEGORY = "category"
     FCSTDATE = "fcstDate"

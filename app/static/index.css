@@ -1,54 +1,77 @@
-.app {
-  height: 100%;
+body {
+	background: #f6f6f6;
+}
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.app {
+	height: 100%;
+
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.containers {
+	display: flex;
+	flex-direction: row;
+	height: 600px;
 }
 
 .container {
-  width: 800px;
+	flex-direction: column;
+	width: 400px;
+	height: 100%;
+	margin: 10px;
 }
 
 .flex {
-  display: flex;
+	display: flex;
 
-  flex-shrink: 0;
-  box-shadow: 0 0 0 2px rgb(175, 78, 78);
+	flex-shrink: 0;
 }
 
 .center {
-  justify-content: center;
-  align-items: center;
-}
-
-.weather-wrap {
-  flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .time {
-  font-size: 20pt;
-  height: 40px;
+	font-size: 20pt;
+	width: 50%;
+	height: 8%;
+}
+
+.round {
+	border-radius: 50px;
+	background: #f6f6f6;
+	box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
 }
 
 .weather {
-  font-size: 80pt;
-  width: 550px;
-  height: 160px;
+	text-align: center;
+	word-break: keep-all;
+
+	font-size: 100pt;
+	width: 100%;
+	height: 72%;
 }
 
 .number-wrap {
-  flex-direction: column;
-  width: 250px;
-  height: 160px;
+	flex-direction: row;
+	width: 100%;
+	height: 20%;
 }
 
 .temp {
-  font-size: 20pt;
-  height: 80px;
+	font-size: 20pt;
+	width: 50%;
 }
 
 .rain {
-  font-size: 20pt;
-  height: 80px;
+	font-size: 20pt;
+	width: 50%;
+}
+
+#update {
+	margin: 20px;
 }

@@ -9,7 +9,9 @@
 		/>
 	</head>
 	<body>
-		<div class="app"></div>
+		<div class="app">
+			<div class="containers"></div>
+		</div>
 	</body>
 	<script>
 		var url = 'data';
@@ -34,35 +36,34 @@
 		}
 
 		function getCurrentTime() {
-			var html = `<div>갱신: ${getKRTime().toString()}</div>`;
+			var html = `<div id="update">갱신: ${getKRTime().toString()}</div>`;
 			var template = document.createElement('template');
 			template.innerHTML = html.trim();
 			return template.content.firstChild;
 		}
 
 		function addHTML(data) {
-			var app = document.getElementsByClassName('app')[0];
-			app.textContent = '';
+			var containers = document.getElementsByClassName('containers')[0];
+			containers.textContent = '';
 			for (var index in data) {
 				var value = data[index];
 				var html = makeHTML(value);
-				app.appendChild(html);
+				containers.appendChild(html);
 			}
 			var currentTime = getCurrentTime();
+			var app = document.getElementsByClassName('app')[0];
 			app.appendChild(currentTime);
 		}
 
 		function makeHTML(value) {
 			var html = `
-        <div class="container">
-          <div class="flex center time">${value['date']}</div>
-          <div class="flex weather-wrap">
-            <div class="flex center weather">${value['weather']}</div>
-            <div class="flex number-wrap">
-              <div class="flex center temp">${value['temp']}℃</div>
-              <div class="flex center rain">${value['rain']}%</div>
-            </div>
-          </div>
+        <div class="flex center container round">
+					<div class="flex center round time">${value['date']}</div>
+					<div class="flex center weather">${value['weather']}</div>
+					<div class="flex number-wrap">
+						<div class="flex center temp">${value['temp']}℃</div>
+						<div class="flex center rain">${value['rain']}%</div>
+					</div>
         </div>`;
 			var template = document.createElement('template');
 			template.innerHTML = html.trim();
