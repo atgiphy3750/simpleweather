@@ -3,8 +3,8 @@
 	--card-color-dark: #faf3f3;
 	--card-color-shadow: #dfdfdf;
 
-	--text-small: 2rem;
-	--text-weather: 12rem;
+	--text-small: 24pt;
+	--text-weather: 160pt;
 
 	--border-radius: 40px;
 	--shadow-distance: 5px;
@@ -19,7 +19,7 @@ body {
 }
 
 .text-weather {
-	font-size: 12rem;
+	font-size: var(--text-weather);
 }
 
 .bg-dark {
