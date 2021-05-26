@@ -3,14 +3,16 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 		<title>날씨</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='index.css') }}"
 		/>
 		<link
-		rel="stylesheet"
-		href="{{ url_for('static', filename='common.css') }}"
+			rel="stylesheet"
+			href="{{ url_for('static', filename='common.css') }}"
 		/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
 	</head>
 	<body>
 		<div class="flex flex-column center app">
@@ -61,16 +63,16 @@
 
 		function makeHTML(value) {
 			var html = `
-        <div class="flex center container">
-			<div class="flex center neu text-small mono card-title bg-light">${value['date']}</div>
-			<div class="neu card-body bg-dark">
-				<div class="empty-box"></div>
-				<div class="flex center text-weather weather">${value['weather']}</div>
-				<div class="flex number-wrapper">
-					<div class="flex center text-small mono number temp">🌡️ ${value['temp']}℃</div>
-					<div class="flex center text-small mono number rain">💧 ${value['rain']}%</div>
-				</div>
-			</div>
+        <div class="container">
+					<div class="flex center neu text-small mono card-title bg-light">${value['date']}</div>
+					<div class="neu card-body bg-dark">
+						<div class="empty-box"></div>
+						<div class="flex center text-weather weather">${value['weather']}</div>
+						<div class="flex number-wrapper">
+							<div class="flex center text-small mono number temp">🌡️ ${value['temp']}℃</div>
+							<div class="flex center text-small mono number rain">💧 ${value['rain']}%</div>
+						</div>
+					</div>
         </div>`;
 			var template = document.createElement('template');
 			template.innerHTML = html.trim();
