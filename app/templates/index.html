@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div class="flex flex-column center app">
-			<div class="flex flex-row center containers"></div>
+			<div class="flex flex-row center cards"></div>
 		</div>
 	</body>
 	<script>
@@ -47,7 +47,7 @@
 		}
 
 		function addHTML(data) {
-			var containers = document.getElementsByClassName('containers')[0];
+			var containers = document.getElementsByClassName('cards')[0];
 			containers.textContent = '';
 			for (var index in data) {
 				var value = data[index];
