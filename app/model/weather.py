@@ -80,7 +80,9 @@ class Weather:
             return False
 
     def to_dict(self) -> Dict:
+        now = datetime.now()
         data = {
+            "createTime": now.strftime(r"%Y%m%d%H%M"),
             Weather.DATE: self.__date,
             Weather.RAIN: self.__rain,
             Weather.WEATHER: self.__weather,
