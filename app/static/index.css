@@ -1,77 +1,36 @@
-body {
-	background: #f6f6f6;
-	font-family: sans-serif;
+:root {
+  --card-width: 400px;
+  --card-height: 600px;
+
+  --card-title-width: calc(var(--card-width) * 0.6);
+  --card-title-height: calc(var(--card-height) * 0.1);
 }
 
-.app {
-	height: 100%;
-	margin-top: 30px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.card-title {
+  position: absolute;
+
+  top: calc(var(--card-title-height) / 2);
+  width: var(--card-title-width);
+  height: var(--card-title-height);
 }
 
-.containers {
-	display: flex;
-	flex-direction: row;
-	height: 600px;
+.card-body {
+  width: var(--card-width);
+  height: var(--card-height);
 }
 
-.container {
-	flex-direction: column;
-	width: 400px;
-	height: 100%;
-	margin: 10px;
-}
-
-.flex {
-	display: flex;
-
-	flex-shrink: 0;
-}
-
-.center {
-	justify-content: center;
-	align-items: center;
-}
-
-.time {
-	font-size: 20pt;
-	width: 50%;
-	height: 8%;
-}
-
-.round {
-	border-radius: 50px;
-	background: #f6f6f6;
-	box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+.empty-box {
+  height: 25%;
 }
 
 .weather {
-	text-align: center;
-	word-break: keep-all;
-
-	font-size: 100pt;
-	width: 100%;
-	height: 72%;
+  height: 50%;
 }
 
-.number-wrap {
-	flex-direction: row;
-	width: 100%;
-	height: 20%;
+.number-wrapper {
+  height: 25%;
 }
 
-.temp {
-	font-size: 20pt;
-	width: 50%;
-}
-
-.rain {
-	font-size: 20pt;
-	width: 50%;
-}
-
-#update {
-	margin: 20px;
+.number {
+  width: 50%;
 }

@@ -7,10 +7,14 @@
 			rel="stylesheet"
 			href="{{ url_for('static', filename='index.css') }}"
 		/>
+		<link
+		rel="stylesheet"
+		href="{{ url_for('static', filename='common.css') }}"
+		/>
 	</head>
 	<body>
-		<div class="app">
-			<div class="containers"></div>
+		<div class="flex flex-column center app">
+			<div class="flex flex-row center containers"></div>
 		</div>
 	</body>
 	<script>
@@ -57,13 +61,16 @@
 
 		function makeHTML(value) {
 			var html = `
-        <div class="flex center container round">
-					<div class="flex center round time">${value['date']}</div>
-					<div class="flex center weather">${value['weather']}</div>
-					<div class="flex number-wrap">
-						<div class="flex center temp">🌡️ ${value['temp']}℃</div>
-						<div class="flex center rain">☔ ${value['rain']}%</div>
-					</div>
+        <div class="flex center container">
+			<div class="flex center neu text-small mono card-title bg-light">${value['date']}</div>
+			<div class="neu card-body bg-dark">
+				<div class="empty-box"></div>
+				<div class="flex center text-weather weather">${value['weather']}</div>
+				<div class="flex number-wrapper">
+					<div class="flex center text-small mono number temp">🌡️ ${value['temp']}℃</div>
+					<div class="flex center text-small mono number rain">💧 ${value['rain']}%</div>
+				</div>
+			</div>
         </div>`;
 			var template = document.createElement('template');
 			template.innerHTML = html.trim();
