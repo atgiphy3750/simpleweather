@@ -61,27 +61,46 @@
 			app.appendChild(currentTime);
 		}
 
+		function getWeatherImgSrc(weather) {
+			switch (weather) {
+				case 'clear':
+					result = "{{ url_for('static', filename='weathers/clear.png') }}";
+					break;
+				case 'cloud':
+					result = "{{ url_for('static', filename='weathers/cloud.png') }}";
+					break;
+				case 'rain':
+					result = "{{ url_for('static', filename='weathers/rain.png') }}";
+					break;
+				case 'snow':
+					result = "{{ url_for('static', filename='weathers/snow.png') }}";
+			}
+			return result;
+		}
+
 		function makeHTML(value) {
+			var weatherImgSrc = getWeatherImgSrc(value['weather']);
+			console.log(weatherImgSrc);
 			var html = `
-        <div class="container">
+		      <div class="container">
 					<div class="flex center neu text-small mono abs card-title bg-light">${value['date']}</div>
 					<div class="neu card-body bg-dark">
 						<div class="empty-box"></div>
 						<div class="flex center weather">
-							<span class="text-weather abs emoji-scale-large">${value['weather']}</span>
+							<img class="img-large" src=${weatherImgSrc} />
 						</div>
 						<div class="flex number-wrapper">
 							<div class="flex center number temp">
-								<span class="text-small emoji-scale-small">🌡️</span>
-								<span class="text-small mono m-number">${value['temp']}℃</span>
+								<img class="img-small" src="{{ url_for('static', filename='weathers/temp.png') }}" />
+								<span class="text-small mono">${value['temp']}℃</span>
 							</div>
 							<div class="flex center number rain">
-								<span class="text-small emoji-scale-small">💧</span>
-								<span class="text-small mono m-number">${value['rain']}%</span>
+								<img class="img-small" src="{{ url_for('static', filename='weathers/pop.png') }}" />
+								<span class="text-small mono">${value['rain']}%</span>
 							</div>
 						</div>
 					</div>
-        </div>`;
+		      </div>`;
 			var template = document.createElement('template');
 			template.innerHTML = html.trim();
 

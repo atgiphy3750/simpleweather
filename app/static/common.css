@@ -18,16 +18,12 @@ body {
 	position: absolute;
 }
 
-.emoji-scale-large {
-	transform: scale(14);
+.img-large {
+	width: 200px;
 }
 
-.emoji-scale-small {
-	transform: scale(1.4);
-}
-
-.m-number {
-	margin-left: 10px;
+.img-small {
+	width: 40px;
 }
 
 .text-small {

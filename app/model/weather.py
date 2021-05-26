@@ -19,9 +19,9 @@ class Weather:
     POP: str = "POP"
 
     # SKYLIST = ["", "맑음", "구름 조금(삭제)", "구름 많음", "흐림"]
-    SKYLIST = ["", "🌞", "☁️", "⛅", "⛅"]
+    SKYLIST = ["", "clear", "cloud", "cloud", "cloud"]
     # PTYLIST = ["", "비", "비/눈", "눈", "소나기", "빗방울", "빗방울/눈날림", "눈날림"]
-    PTYLIST = ["", "☔", "☔", "❄", "☔", "☔", "☔", "❄"]
+    PTYLIST = ["", "rain", "rain", "snow", "rain", "rain", "rain", "snow"]
 
     CATEGORY = "category"
     FCSTDATE = "fcstDate"
@@ -60,7 +60,9 @@ class Weather:
 
     def should_break(self, item) -> bool:
         if self.__date:
-            item_datetime = self.__get_datetime(item[Weather.FCSTDATE], item[Weather.FCSTTIME])
+            item_datetime = self.__get_datetime(
+                item[Weather.FCSTDATE], item[Weather.FCSTTIME]
+            )
             item_date = str(item_datetime.date()).strip()
             return self.__date != item_date
         return False
