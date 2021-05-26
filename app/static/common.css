@@ -19,7 +19,7 @@ body {
 }
 
 .text-weather {
-	font-size: var(--text-weather);
+	font-size: 12rem;
 }
 
 .bg-dark {
