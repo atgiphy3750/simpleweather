@@ -64,13 +64,21 @@
 		function makeHTML(value) {
 			var html = `
         <div class="container">
-					<div class="flex center neu text-small mono card-title bg-light">${value['date']}</div>
+					<div class="flex center neu text-small mono abs card-title bg-light">${value['date']}</div>
 					<div class="neu card-body bg-dark">
 						<div class="empty-box"></div>
-						<div class="flex center text-weather weather">d${value['weather']}</div>
+						<div class="flex center weather">
+							<span class="text-weather abs emoji-scale-large">${value['weather']}</span>
+						</div>
 						<div class="flex number-wrapper">
-							<div class="flex center text-small mono number temp">🌡️ ${value['temp']}℃</div>
-							<div class="flex center text-small mono number rain">💧 ${value['rain']}%</div>
+							<div class="flex center number temp">
+								<span class="text-small emoji-scale-small">🌡️</span>
+								<span class="text-small mono m-number">${value['temp']}℃</span>
+							</div>
+							<div class="flex center number rain">
+								<span class="text-small emoji-scale-small">💧</span>
+								<span class="text-small mono m-number">${value['rain']}%</span>
+							</div>
 						</div>
 					</div>
         </div>`;
