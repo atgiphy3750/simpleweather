@@ -3,7 +3,7 @@ venv/
 .idea/
 .env
 
-weather.json
+*.json
 
 *.pyc
 __pycache__/
