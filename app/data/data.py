@@ -11,7 +11,7 @@ FETCH_DAYS = 2
 URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"
 
 
-def data():
+def weather_data():
     data_ = fetch_data()
     if data_:
         return parse(data_)
