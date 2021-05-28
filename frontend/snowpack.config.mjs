@@ -11,10 +11,10 @@ export default {
         /* Yarn PnP workaround: see https://www.npmjs.com/package/@snowpack/plugin-typescript */
         ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}),
       },
-      "@snowpack/plugin-babel",
+      '@snowpack/plugin-babel',
       {
-        "input": ['.js, .ts']
-      }
+        input: ['.js, .ts'],
+      },
     ],
   ],
   routes: [
@@ -22,7 +22,8 @@ export default {
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
   optimize: {
-    "minify": true
+    minify: true,
+    bundle: true,
   },
   packageOptions: {
     /* ... */
