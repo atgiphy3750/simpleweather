@@ -81,7 +81,8 @@ const getCurrentTime = () => {
 const svgWrapper = (svg: string, size: number, shadow: boolean) => {
   return `
       <svg ${
-        shadow ? "class='svg-shadow'" : ''
+        // shadow ? "class='svg-shadow'" : ''
+        ''
       } xmlns="http://www.w3.org/2000/svg" width="${size}" viewBox="0 0 36 36">
         ${svg}
       </svg>

@@ -23,8 +23,8 @@
       `,pop:`
     <title>강수확률</title>
     <path fill="#5DADEC" d="M28.344 17.768L18.148 1.09 8.7 17.654c-2.2 3.51-2.392 8.074-.081 11.854 3.285 5.373 10.363 7.098 15.811 3.857 5.446-3.24 7.199-10.22 3.914-15.597z" />
-      `};window.onload=function(){i(),setInterval(i,1e3*60*60)};var v=function(c){var t=new XMLHttpRequest;t.open("POST","data"),t.setRequestHeader("Content-Type","application/json"),t.onload=function(){c(JSON.parse(t.responseText))},t.onerror=function(){console.error("Data fetch error")},t.send()},i=function(){v(function(c){m(c)})},p=function(){var c=new Date,t=c.getTime()+c.getTimezoneOffset()*60*1e3,n=9*60*60*1e3,l=new Date(t+n);return l},u=function(){var c='<div id="update">갱신: '.concat(p().toString(),"</div>"),t=document.createElement("template");t.innerHTML=c.trim();var n=t.content.firstChild;return n},s=function(c,t,n){return`
-      <svg `.concat(n?"class='svg-shadow'":"",' xmlns="http://www.w3.org/2000/svg" width="').concat(t,`" viewBox="0 0 36 36">
+      `};window.onload=function(){s(),setInterval(s,1e3*60*60)};var v=function(c){var t=new XMLHttpRequest;t.open("POST","data"),t.setRequestHeader("Content-Type","application/json"),t.onload=function(){c(JSON.parse(t.responseText))},t.onerror=function(){console.error("Data fetch error")},t.send()},s=function(){v(function(c){m(c)})},p=function(){var c=new Date,t=c.getTime()+c.getTimezoneOffset()*60*1e3,n=9*60*60*1e3,l=new Date(t+n);return l},u=function(){var c='<div id="update">갱신: '.concat(p().toString(),"</div>"),t=document.createElement("template");t.innerHTML=c.trim();var n=t.content.firstChild;return n},i=function(c,t,n){return`
+      <svg `.concat(' xmlns="http://www.w3.org/2000/svg" width="',t,`" viewBox="0 0 36 36">
         `).concat(c,`
       </svg>
     `)},C=function(c){var t=c.weather,n=`
@@ -33,17 +33,18 @@
       <div class="neu card-body bg-dark">
         <div class="empty-box"></div>
         <div class="flex center weather">
-          `).concat(s(r[t],200,!0),`
+          `).concat(i(r[t],200,!0),`
         </div>
         <div class="flex number-wrapper">
           <div class="flex center number temp">
-            `).concat(s(r.temp,40,!1),`
+            `).concat(i(r.temp,40,!1),`
             <span class="text-small mono">`).concat(c.temp,`℃</span>
           </div>
           <div class="flex center number rain">
-            `).concat(s(r.pop,40,!1),`
+            `).concat(i(r.pop,40,!1),`
             <span class="text-small mono">`).concat(c.rain,`%</span>
           </div>
         </div>
       </div>
       </div>`),l=document.createElement("template");l.innerHTML=n.trim();var a=l.content.firstChild;return a},m=function(c){var t=document.getElementsByClassName("cards")[0];t.textContent="";for(var n in c){var l=c[n],a=C(l);t.appendChild(a)}var o=u(),d=document.getElementsByClassName("app")[0];d.appendChild(o)};
+

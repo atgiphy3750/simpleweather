@@ -32,6 +32,7 @@ export default {
     /* ... */
   },
   buildOptions: {
+    sourcemap: false,
     /* ... */
   },
 };
