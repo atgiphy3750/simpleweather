@@ -47,4 +47,3 @@
         </div>
       </div>
       </div>`),l=document.createElement("template");l.innerHTML=n.trim();var a=l.content.firstChild;return a},m=function(c){var t=document.getElementsByClassName("cards")[0];t.textContent="";for(var n in c){var l=c[n],a=C(l);t.appendChild(a)}var o=u(),d=document.getElementsByClassName("app")[0];d.appendChild(o)};
-//# sourceMappingURL=index.js.map
