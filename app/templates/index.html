@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="오늘내일의 날씨를 알려줍니다"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/index.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/common.css') }}"
-    />
-    <title>오늘내일날씨</title>
-  </head>
-  <body>
-    <div class="flex flex-column center app">
-      <div class="flex flex-row center cards"></div>
-    </div>
-    <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
-  </body>
+	<head>
+		<meta http-equiv="Content-type" charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="오늘내일의 날씨를 알려줍니다" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/index.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/common.css') }}"
+		/>
+		<title>오늘내일날씨</title>
+	</head>
+	<body>
+		<div class="flex flex-column center app">
+			<div class="flex flex-row center cards"></div>
+		</div>
+		<script
+			type="text/javascript"
+			src="{{ url_for('static', filename='js/index.js') }}"
+		></script>
+	</body>
 </html>
