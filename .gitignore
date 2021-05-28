@@ -2,8 +2,10 @@ venv/
 .vscode/
 .idea/
 .env
+weather.json
 
-*.json
+node_modules/
+
 
 *.pyc
 __pycache__/

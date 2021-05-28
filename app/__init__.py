@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def index():
+    mimetypes.add_type("text/javascript", ".js")
     return render_template("index.html")
 
 
@@ -26,7 +27,7 @@ def get_data():
 
 
 def handle_json_success():
-    saved_data = os.path.join(app.static_folder, "weather.json")
+    saved_data = os.path.join(app.static_folder, "weather.json")  # type:ignore
     with open(saved_data, "r", encoding="utf-8") as saved:
         data = json.load(saved)
         create_time_str = data.get("0").get("createTime")
@@ -36,15 +37,22 @@ def handle_json_success():
             raise Exception
         return data
 
+
 def handle_json_failure():
     data = weather_data()
-    saved_data = os.path.join(app.static_folder, "weather.json")
+    saved_data = os.path.join(app.static_folder, "weather.json")  # type:ignore
     with open(saved_data, "w", encoding="utf-8") as saved:
         json.dump(data, saved)
         return data
+
 
 def sub_hour(before: datetime, after: datetime):
     diff = after - before
     diff_second = diff.total_seconds()
     hours = divmod(diff_second, 3600)[0]
     return hours
+
+
+import mimetypes
+
+print(mimetypes.guess_type("index.js"))
