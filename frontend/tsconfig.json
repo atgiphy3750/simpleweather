@@ -1,8 +1,8 @@
 {
   "include": ["src", "types"],
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
+    "module": "es2015",
+    "target": "es2015",
     "moduleResolution": "node",
     "jsx": "preserve",
     "baseUrl": "./",
@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error",
     /* more strict checking for errors that per-file transpilers like `esbuild` would crash */
-    "isolatedModules": true,
+    "isolatedModules": false,
     /* noEmit - We only use TypeScript for type checking. */
     "noEmit": true,
     /* Additional Options */
