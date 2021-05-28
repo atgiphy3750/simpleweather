@@ -1,147 +1,26 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-		<title>날씨</title>
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='index.css') }}"
-		/>
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='common.css') }}"
-		/>
-	</head>
-	<body>
-		<div class="flex flex-column center app">
-			<div class="flex flex-row center cards"></div>
-		</div>
-	</body>
-	<script>
-		var url = 'data';
-		window.onload = function () {
-			show();
-			setInterval(show, 1000 * 60 * 60);
-		};
-
-		function show() {
-			getData(function (result) {
-				addHTML(result);
-			});
-		}
-
-		function getKRTime() {
-			var currTime = new Date();
-			var utcTime =
-				currTime.getTime() + currTime.getTimezoneOffset() * 60 * 1000;
-			var KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-			var KRTime = new Date(utcTime + KR_TIME_DIFF);
-			return KRTime;
-		}
-
-		function getCurrentTime() {
-			var html = `<div id="update">갱신: ${getKRTime().toString()}</div>`;
-			var template = document.createElement('template');
-			template.innerHTML = html.trim();
-			return template.content.firstChild;
-		}
-
-		function addHTML(data) {
-			var containers = document.getElementsByClassName('cards')[0];
-			containers.textContent = '';
-			for (var index in data) {
-				var value = data[index];
-				var html = makeHTML(value);
-				containers.appendChild(html);
-			}
-			var currentTime = getCurrentTime();
-			var app = document.getElementsByClassName('app')[0];
-			app.appendChild(currentTime);
-		}
-
-		function getWeatherImgSrc(weather) {
-			switch (weather) {
-				case 'clear':
-					result = "{{ url_for('static', filename='weathers/clear.png') }}";
-					break;
-				case 'cloud':
-					result = "{{ url_for('static', filename='weathers/cloud.png') }}";
-					break;
-				case 'rain':
-					result = "{{ url_for('static', filename='weathers/rain.png') }}";
-					break;
-				case 'snow':
-					result = "{{ url_for('static', filename='weathers/snow.png') }}";
-			}
-			return result;
-		}
-
-		function makeHTML(value) {
-			var weatherImgSrc = getWeatherImgSrc(value['weather']);
-			console.log(weatherImgSrc);
-			var html = `
-		      <div class="container">
-					<div class="flex center neu text-small mono abs card-title bg-light">${value['date']}</div>
-					<div class="neu card-body bg-dark">
-						<div class="empty-box"></div>
-						<div class="flex center weather">
-							<img class="img-large" src=${weatherImgSrc} />
-						</div>
-						<div class="flex number-wrapper">
-							<div class="flex center number temp">
-								<img class="img-small" src="{{ url_for('static', filename='weathers/temp.png') }}" />
-								<span class="text-small mono">${value['temp']}℃</span>
-							</div>
-							<div class="flex center number rain">
-								<img class="img-small" src="{{ url_for('static', filename='weathers/pop.png') }}" />
-								<span class="text-small mono">${value['rain']}%</span>
-							</div>
-						</div>
-					</div>
-		      </div>`;
-			var template = document.createElement('template');
-			template.innerHTML = html.trim();
-
-			return template.content.firstChild;
-		}
-
-		function parseDatetime(datetimeString) {
-			var reg = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
-			var dateArray = reg.exec(datetimeString);
-			var datetime = new Date(
-				+dateArray[1],
-				+dateArray[2] - 1, // Careful, month starts at 0!
-				+dateArray[3],
-				+dateArray[4],
-				+dateArray[5],
-				+dateArray[6]
-			);
-
-			var date = datetime.getDate();
-			var today = new Date().getDate();
-			var isToday = '오늘';
-			if (date === today + 1) {
-				isToday = '내일';
-			}
-
-			var hours = datetime.getHours();
-
-			return `${isToday} ${hours}시`;
-		}
-
-		function getData(callback) {
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', url);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-
-			xhr.onload = function () {
-				callback(JSON.parse(xhr.responseText));
-			};
-			xhr.onerror = function () {
-				console.error('Data fetch error');
-			};
-
-			xhr.send();
-		}
-	</script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Web site created using create-snowpack-app"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/common.css') }}"
+    />
+    <title>오늘내일날씨</title>
+  </head>
+  <body>
+    <div class="flex flex-column center app">
+      <div class="flex flex-row center cards"></div>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
 </html>
