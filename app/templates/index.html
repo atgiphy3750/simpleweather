@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="오늘내일의 날씨를 알려줍니다" />
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='css/index.css') }}"
-		/>
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='css/common.css') }}"
-		/>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>오늘내일날씨</title>
-	</head>
+	<script type="module" crossorigin src="/static/js/index.2d7e22bf.js"></script>
+  <link rel="stylesheet" href="/static/css/index.ddf2f160.css">
+</head>
 	<body>
 		<div class="flex flex-column center app">
 			<div class="flex flex-row center cards"></div>
+			<div class="flex update-time"></div>
 		</div>
-		<script
-			type="text/javascript"
-			src="{{ url_for('static', filename='js/index.js') }}"
-		></script>
-	</body>
+		
+	
+<script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+  <script nomodule src="/static/js/polyfills-legacy.fe011fcc.js"></script>
+  <script nomodule id="vite-legacy-entry" data-src="/static/js/index-legacy.42b4d65e.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+</body>
 </html>
