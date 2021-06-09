@@ -58,15 +58,15 @@ const makeHTML = (value: any) => {
 	const weather = value['weather'];
 	const html = `
       <div class="container">
-      <div class="flex center neu text-small mono abs card-title bg-light">${
-				value['date']
-			}</div>
-      <div class="neu card-body bg-dark">
-        <div class="empty-box"></div>
-        <div class="flex center weather">
+        <div class="flex center neu text-small mono abs card-title bg-light">${
+          value['date']
+        }</div>
+        <div class="neu card-body bg-dark">
+          <div class="empty-box"></div>
+          <div class="flex center weather">
           ${svgWrapper(svgs[weather], 200, true)}
-        </div>
-        <div class="flex number-wrapper">
+          </div>
+          <div class="flex number-wrapper">
           <div class="flex center number temp">
             ${svgWrapper(svgs['temp'], 40, false)}
             <span class="text-small mono">${value['temp']}°C</span>
@@ -75,8 +75,8 @@ const makeHTML = (value: any) => {
             ${svgWrapper(svgs['pop'], 40, false)}
             <span class="text-small mono">${value['rain']}%</span>
           </div>
+          </div>
         </div>
-      </div>
       </div>`;
 	const template = document.createElement('template');
 	template.innerHTML = html.trim();
